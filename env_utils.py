@@ -224,7 +224,9 @@ def check_env_conflicts(env_file_path: str):
             print()
 
         print("SOLUTIONS:")
-        print("  1. Unset the conflicting system environment variables:")
+        print("  1. Do nothing and accept the system environment variable value.")
+        print()
+        print("  2. Unset the conflicting system environment variables for this shell session:")
         if sys.platform == "win32":
             print("     CMD:")
             for conflict in conflicts:
@@ -236,10 +238,10 @@ def check_env_conflicts(env_file_path: str):
             for conflict in conflicts:
                 print(f"       unset {conflict['key']}")
         print()
-        print("  2. Use load_dotenv(override=True) in your notebooks to force")
+        print("  3. Use load_dotenv(override=True) in your notebooks to force")
         print("     .env values to take precedence")
         print()
-        print("  3. Update your .env file to match your system environment")
+        print("  4. Update your .env file or shell init so the values are in agreement")
         print("=" * 70)
         print()
 
@@ -383,6 +385,10 @@ def doublecheck_env(file_path: str):
             issues.append(f"  ⚠️  LANGSMITH_TRACING is enabled but LANGSMITH_API_KEY is not set")
         elif langsmith_api_key == langsmith_example:
             issues.append(f"  ⚠️  LANGSMITH_TRACING is enabled but LANGSMITH_API_KEY still has the example/placeholder value")
+        else:
+            print("\n✅ LANGSMITH_TRACING is enabled and the LANGSMITH_API_KEY is set")
+    elif langsmith_api_key and langsmith_api_key != langsmith_example:
+        issues.append("⚠️  LANGSMITH_API_KEY is set, but LANGSMITH_TRACING is disabled")
 
     # Print any issues found
     if issues:

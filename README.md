@@ -10,11 +10,11 @@ Welcome to LangChain Academy's Introduction to LangChain course!
 
 ### Prerequisites
 
-- The Chrome browser is recommended
-- Ensure you're using Python >=3.12, <3.14 [More info](#python-virtual-environments)
+- The [Chrome](https://www.google.com/chrome/) browser is recommended
+- [git](https://git-scm.com/install/) is recommended
 - A package/project manager: [uv](https://docs.astral.sh/uv/) (recommended) or [pip](https://pypi.org/project/pip/)
     - note: `uv` is also required in Module 2, Lesson 1 to run the MCP server with `uvx`
-
+- The course requires Python >=3.12, <3.14  If you use `uv`, it will take care of this for you. [More info](#python-virtual-environments)
 
 ### Installation
 
@@ -31,7 +31,7 @@ Make a copy of example.env
 cp example.env .env
 ```
 
-Edit the .env file to include the keys below. [More info](#model-providers)
+Edit the .env file to include the keys below for [Models](#model-providers) and optionally [LangSmith](#getting-started-with-langsmith)
 ```bash
 # Required
 OPENAI_API_KEY='your_openai_api_key_here'
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 
 ### Quick Start Verification
 
-After completing the Setup section, we recommend you run this command to verify your environment:
+After completing the Setup section, we recommend you run the following command to verify your environment.  [More Info](#environment-verification)
 
 <details open>
 <summary>Using uv</summary>
@@ -92,62 +92,6 @@ uv run python env_utils.py
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 python env_utils.py
 ```
-
-</details>
-
-**What the verification checks:**
-- ✅ Python executable location and version (must be >=3.12, <3.14)
-- ✅ Virtual environment is properly activated
-- ✅ Required packages are installed with correct versions
-- ✅ Packages are in the correct Python version's site-packages
-- ✅ Environment variables (API keys) are properly configured
-
-**Configuration Issues and Solutions:**
-
-<details>
-<summary>ImportError when running env_utils.py</summary>
-
-If you see an error like `ModuleNotFoundError: No module named 'dotenv'`, you're likely running Python outside the virtual environment.
-
-**Solution:**
-- Use `uv run python env_utils.py` (recommended), or
-- Activate the virtual environment first:
-  - macOS/Linux: `source .venv/bin/activate`
-  - Windows: `.venv\Scripts\activate`
-
-</details>
-
-<details>
-<summary>Environment Variable Conflicts</summary>
-
-If you see a warning about "ENVIRONMENT VARIABLE CONFLICTS DETECTED", you have API keys set in your system environment that differ from your .env file. Since `load_dotenv()` doesn't override existing variables by default, your system values will be used.
-
-**Solutions:**
-1. Unset the conflicting system environment variables (commands provided in warning)
-2. Use `load_dotenv(override=True)` in your notebooks to force .env values to take precedence
-3. Update your .env file to match your system environment
-
-</details>
-
-<details>
-<summary>LangSmith Tracing Errors</summary>
-
-If you see "LANGSMITH_TRACING is enabled but LANGSMITH_API_KEY still has the example/placeholder value", you need to either:
-1. Set a valid LangSmith API key in your .env file, or
-2. Comment out or set `LANGSMITH_TRACING=false` in your .env file
-
-Note: LangSmith is optional for evaluation and tracing. The course works without it.
-
-</details>
-
-<details>
-<summary>Wrong Python Version</summary>
-
-If you see a warning about Python version not satisfying requirements, you need Python >=3.12 and <3.14.
-
-**Solution:**
-- If using `uv`: Run `uv sync` which will automatically install the correct Python version
-- If using pip: Install Python 3.12 or 3.13 using [pyenv](#python-virtual-environments) or from [python.org](https://www.python.org/downloads/)
 
 </details>
 
@@ -171,7 +115,6 @@ jupyter lab
 ```
 
 </details>
-
 
 ## 📚 Lessons
 This repository contains three Modules that serve as introductions to many of LangChain's most-used features.
@@ -234,7 +177,7 @@ pip install -r requirements.txt
 If you don't have an OpenAI API key, you can sign up [here](https://openai.com/index/openai-api/). The course primarily uses gpt-5-nano which is very inexpensive.
 You may also obtain additional API keys for [Anthropic](https://console.anthropic.com) or [Google](https://docs.langchain.com/oss/python/integrations/providers/google). These models are only used in the first lesson.
 
-This course has been created using particular models and model providers.  You can use other providers, but you will need to update the API keys in the .env file and make some necessary code changes. LangChain supports many chat model providers [here](https://docs.langchain.com/oss/python/integrations/providers/all_providers).
+This course has been created using particular models and model providers.  You can use other providers, but you will need to update the API keys in the .env file and make some necessary code changes. LangChain supports many chat model providers. [More Info](https://docs.langchain.com/oss/python/integrations/providers/all_providers).
 
 Tavily is a search provider that returns search results in an LLM-friendly way. They have a generous free tier. [Tavily](https://tavily.com)
 
@@ -256,10 +199,69 @@ For more information on LangSmith, see our docs [here](https://docs.langchain.co
 
 ### Environment Variables
 
-This course uses the [dotenv](https://pypi.org/project/python-dotenv) module to read key-value pairs from the .env file and set them in the environment in the Jupyter notebook. They do not need to be set globally in your system environment.
+This course uses the [dotenv](https://pypi.org/project/python-dotenv) module to read key-value pairs from the .env file and set them in the environment in the Jupyter notebooks. They do not need to be set globally in your system environment.
 
 **Note:** If you have API keys already set in your system environment, they may conflict with the ones in your .env file. The `env_utils.py` verification script will detect and warn you about such conflicts. By default, `load_dotenv()` does not override existing environment variables.
 
+### Environment Verification
+
+**What the verification procedure checks:**
+- ✅ Python executable location and version (must be >=3.12, <3.14)
+- ✅ Virtual environment is properly activated
+- ✅ Required packages are installed with correct versions
+- ✅ Packages are in the correct Python version's site-packages
+- ✅ Environment variables (API keys) are properly configured
+
+**Configuration Issues and Solutions:**
+
+<details>
+<summary>ImportError when running env_utils.py</summary>
+
+If you see an error like `ModuleNotFoundError: No module named 'dotenv'`, you're likely running Python outside the virtual environment.
+
+**Solution:**
+- Use `uv run python env_utils.py` (recommended), or
+- Activate the virtual environment first:
+  - macOS/Linux: `source .venv/bin/activate`
+  - Windows: `.venv\Scripts\activate`
+
+</details>
+
+<details>
+<summary>Environment Variable Conflicts</summary>
+
+If you see a warning about "ENVIRONMENT VARIABLE CONFLICTS DETECTED", you have API keys set in your system environment that differ from your .env file. Since `load_dotenv()` doesn't override existing variables by default, your system values will be used.
+
+**Solutions:**
+1. Do nothing and accept the system environment variable value
+2. Unset the conflicting system environment variables for this shell session (commands provided in warning)
+3. Use `load_dotenv(override=True)` in your notebooks to force .env values to take precedence
+4. Update your .env file or shell init so the values are in agreement
+
+</details>
+
+<details>
+<summary>LangSmith Tracing Errors</summary>
+
+If you see "LANGSMITH_TRACING is enabled but LANGSMITH_API_KEY still has the example/placeholder value", you need to either:
+1. Set a valid LangSmith API key in your .env file, or
+2. Comment out or set `LANGSMITH_TRACING=false` in your .env file
+
+Note: LangSmith is optional for evaluation and tracing. The course works without it.
+
+</details>
+
+<details>
+<summary>Wrong Python Version</summary>
+
+If you see a warning about Python version not satisfying requirements, you need Python >=3.12 and <3.14.
+
+**Solution:**
+- If using `uv`: Run `uv sync` which will automatically install the correct Python version
+- If using pip: Install Python 3.12 or 3.13 using [pyenv](#python-virtual-environments) or from [python.org](https://www.python.org/downloads/)
+
+</details>
+
 ### Development Environment
 
-The course uses [Jupyter](https://jupyter.org/) notebooks. Jupyter is installed and can be run as described above. Jupyter notebooks can also be edited and run in VSCode or other VSCode variants such as Windsurf or Cursor.
+The course uses [Jupyter](https://jupyter.org/) notebooks. The Jupyter package is installed in the virtual environment and can be run as described above. Jupyter notebooks can also be edited and run in VSCode or other VSCode variants such as Windsurf or Cursor.
