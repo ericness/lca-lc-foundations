@@ -2,7 +2,9 @@
 
 ## Introduction
 
-Welcome to LangChain Academy's Introduction to LangChain course!
+### Welcome to LangChain Academy's Introduction to LangChain course!
+
+### This repository is the companion to the course located [HERE](https://academy.langchain.com/courses/foundation-introduction-to-langchain-python).
 
 ---
 
@@ -112,6 +114,29 @@ uv run jupyter lab
 ```bash
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 jupyter lab
+```
+
+</details>
+
+### Run Studio (optional)
+
+Ensure you are in the notebooks/module-1 or notebooks/module-3 directory
+
+ <details open>
+<summary>Using uv (recommended)</summary>
+
+```bash
+uv run langgraph dev
+```
+
+</details>
+
+<details>
+<summary>Using pip</summary>
+
+```bash
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+langgraph dev
 ```
 
 </details>
